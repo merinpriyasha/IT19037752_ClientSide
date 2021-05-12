@@ -45,13 +45,13 @@ public class GadgetProduct {
 	preparedStmt.execute();
 	con.close();
 	
-	String newItems = readProducts(); 
-	 output = "{\"status\":\"success\", \"data\": \"" + newItems + "\"}"; 
+	String newProducts = readProducts(); 
+	 output = "{\"status\":\"success\", \"data\": \"" + newProducts + "\"}"; 
 	 
 	}
 	catch (Exception e)
 	{
-		output = "{\"status\":\"error\", \"data\": \"Error while inserting the item.\"}"; 
+		output = "{\"status\":\"error\", \"data\": \"Error while inserting the Product.\"}"; 
 	System.err.println(e.getMessage());
 	}
 	return output;
@@ -134,12 +134,13 @@ public class GadgetProduct {
 	// execute the statement
 	preparedStmt.execute();
 	con.close();
-	String newItems = readProducts(); 
-	 output = "{\"status\":\"success\", \"data\": \"" + newItems + "\"}"; 
+	
+	String newProducts = readProducts(); 
+	 output = "{\"status\":\"success\", \"data\": \"" + newProducts + "\"}"; 
 	}
 	catch (Exception e)
 	{
-	output = "{\"status\":\"error\", \"data\": \"Error while deleting the item.\"}"; 
+	output = "{\"status\":\"error\", \"data\": \"Error while deleting the product.\"}"; 
 	System.err.println(e.getMessage());
 	}
 	return output;
@@ -172,11 +173,11 @@ public class GadgetProduct {
 			preparedStmt.execute();
 			con.close();
 
-			String newItems = readProducts(); 
-			 output = "{\"status\":\"success\", \"data\": \"" + newItems + "\"}"; 
+			String newProducts = readProducts(); 
+			 output = "{\"status\":\"success\", \"data\": \"" + newProducts + "\"}"; 
 			 
 		} catch (Exception e) {
-			output = "{\"status\":\"error\", \"data\": \"Error while updating the item.\"}";
+			output = "{\"status\":\"error\", \"data\": \"Error while updating the product.\"}";
 			System.err.println(e.getMessage());
 		}
 
