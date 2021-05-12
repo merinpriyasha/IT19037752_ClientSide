@@ -40,7 +40,7 @@ $(document).on("click", "#btnSave", function(event)
  	});
 });
 
-// UPDATE==========================================
+// UPDATE BUTTON==========================================
 $(document).on("click", ".btnUpdate", function(event) 
 { 
  	$("#hidItemIDSave").val($(this).data("pid")); 
@@ -50,7 +50,7 @@ $(document).on("click", ".btnUpdate", function(event)
  	$("#pDes").val($(this).closest("tr").find('td:eq(3)').text());
 });
 
-// DELETE=====================================================
+// DELETE BUTTON=====================================================
 $(document).on("click", ".btnRemove", function(event)
 { 
  $.ajax( 
@@ -70,26 +70,37 @@ $(document).on("click", ".btnRemove", function(event)
 // CLIENT-MODEL================================================================
 function validateItemForm() 
 { 
-	// CODE
+	// PRODUCT NAME
 	if ($("#pName").val().trim() == "") 
  	{ 
- 		return "Insert Item Code."; 
+ 		return "Insert Product Name."; 
  	} 
-	// NAME
+	// DATE------------------------------
 	if ($("#pDate").val().trim() == "") 
  	{ 
- 		return "Insert Item Name."; 
+ 		return "Insert Product Date."; 
  	}
- 	// PRICE-------------------------------
+ 	// PRODUCT PRICE---------------------------
 	if ($("#pPrice").val().trim() == "") 
  	{ 
- 		return "Insert Item Price."; 
+ 		return "Insert Product Price."; 
  	} 
+ 	
+ 	// is numerical value
+	var tmpPrice = $("#pPrice").val().trim(); 
+	if (!$.isNumeric(tmpPrice)) 
+ 	{ 
+ 		return "Insert a numerical value for Product Price."; 
+	 } 
+	 
+	// convert to decimal price
+ 	$("#pPrice").val(parseFloat(tmpPrice).toFixed(2)); 
+	
 	
 	// DESCRIPTION------------------------
 	if ($("#pDes").val().trim() == "") 
  	{ 
- 		return "Insert Item Description."; 
+ 		return "Insert Product Description."; 
  	}
  	  
 return true; 
@@ -130,28 +141,28 @@ function onItemSaveComplete(response, status)
 
 function onItemDeleteComplete(response, status)
 { 
-if (status == "success") 
- { 
- var resultSet = JSON.parse(response); 
- if (resultSet.status.trim() == "success") 
- { 
- $("#alertSuccess").text("Successfully deleted."); 
- $("#alertSuccess").show(); 
- $("#divItemsGrid").html(resultSet.data); 
- } else if (resultSet.status.trim() == "error") 
- { 
- $("#alertError").text(resultSet.data); 
- $("#alertError").show(); 
- } 
- } else if (status == "error") 
- { 
- $("#alertError").text("Error while deleting."); 
- $("#alertError").show(); 
- } else
- { 
- $("#alertError").text("Unknown error while deleting.."); 
- $("#alertError").show(); 
- } 
+	if (status == "success") 
+ 	{ 
+ 		var resultSet = JSON.parse(response); 
+ 		if (resultSet.status.trim() == "success") 
+ 		{ 
+ 			$("#alertSuccess").text("Successfully deleted."); 
+ 			$("#alertSuccess").show(); 
+ 			$("#divItemsGrid").html(resultSet.data); 
+ 		} else if (resultSet.status.trim() == "error") 
+ 		{ 
+ 			$("#alertError").text(resultSet.data); 
+ 			$("#alertError").show(); 
+ 		} 
+	} else if (status == "error") 
+	 { 
+ 		$("#alertError").text("Error while deleting."); 
+		 $("#alertError").show(); 
+	} else
+ 	{ 
+ 		$("#alertError").text("Unknown error while deleting.."); 
+ 		$("#alertError").show(); 
+ 	} 
 }
 
 function decode_utf8( s ){
