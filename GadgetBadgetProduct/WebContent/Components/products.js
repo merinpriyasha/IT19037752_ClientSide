@@ -7,7 +7,7 @@ $(document).ready(function()
  	$("#alertError").hide(); 
 });
 
- // SAVE ============================================
+ // SAVE BUTTON ============================================
 $(document).on("click", "#btnSave", function(event) 
 { 
 	// Clear alerts---------------------
@@ -24,13 +24,13 @@ $(document).on("click", "#btnSave", function(event)
  		return; 
 	} 
 	// If valid------------------------
- 		var type = ($("#hidItemIDSave").val() == "") ? "POST" : "PUT"; 
+ 		var type = ($("#hidProductIDSave").val() == "") ? "POST" : "PUT"; 
  		
  		$.ajax( 
  	{ 
  		url : "ProductsAPI", 
 	 	type : type, 
- 		data : $("#formItem").serialize(), 
+ 		data : $("#formProduct").serialize(), 
  		dataType : "text", 
  		complete : function(response, status) 
  	{ 
@@ -43,7 +43,7 @@ $(document).on("click", "#btnSave", function(event)
 // UPDATE BUTTON==========================================
 $(document).on("click", ".btnUpdate", function(event) 
 { 
- 	$("#hidItemIDSave").val($(this).data("pid")); 
+ 	$("#hidProductIDSave").val($(this).data("pid")); 
  	$("#pName").val($(this).closest("tr").find('td:eq(0)').text()); 
 	$("#pDate").val($(this).closest("tr").find('td:eq(1)').text()); 
  	$("#pPrice").val($(this).closest("tr").find('td:eq(2)').text()); 
@@ -67,7 +67,7 @@ $(document).on("click", ".btnRemove", function(event)
 });
 
 
-// CLIENT-MODEL================================================================
+// FORM VALIDATION================================================================
 function validateProductForm() 
 { 
 	// PRODUCT NAME
@@ -106,7 +106,7 @@ function validateProductForm()
 return true; 
 }
 
-// Function on items==========
+// SAVE FUNCTION==========
 function onProductSaveComplete(response, status)
 { 
 	if (status == "success") 
@@ -116,7 +116,7 @@ function onProductSaveComplete(response, status)
  		{ 
  			$("#alertSuccess").text("Successfully saved."); 
  			$("#alertSuccess").show(); 
- 			$("#divItemsGrid").html(resultSet.data); 
+ 			$("#divProductsGrid").html(resultSet.data); 
  		} else if (resultSet.status.trim() == "error") 
  		{ 
  			$("#alertError").text(resultSet.data); 
@@ -133,11 +133,11 @@ function onProductSaveComplete(response, status)
  		}
  		
  		
- 		$("#hidItemIDSave").val(""); 
- 		$("#formItem")[0].reset(); 
+ 		$("#hidProductIDSave").val(""); 
+ 		$("#formProduct")[0].reset(); 
 }
 
-// function items Delete====================
+// DELETE FUNCTION====================
 
 function onProductDeleteComplete(response, status)
 { 
@@ -148,7 +148,7 @@ function onProductDeleteComplete(response, status)
  		{ 
  			$("#alertSuccess").text("Successfully deleted."); 
  			$("#alertSuccess").show(); 
- 			$("#divItemsGrid").html(resultSet.data); 
+ 			$("#divProductsGrid").html(resultSet.data); 
  		} else if (resultSet.status.trim() == "error") 
  		{ 
  			$("#alertError").text(resultSet.data); 
